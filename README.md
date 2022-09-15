@@ -13,7 +13,15 @@ the script will perform a very quick verification of the some of the last blocks
 invoke with superuser-rights and specify the target:  
 `sudo ./zero_nonzero_blocks_of_dev.sh /dev/<device-to-be-zeroed>`
 
-use with CAUTION and on your own risk, this script WILL WIPE THE BLOCKDEVICE SPECIFIED!
+#### advanced configuration options
+* blocksize  
+  to change the blocksize (default: 64k) used, alter the value assigned to _BLKSZ_ at the beginning of the script.
+  
+* offset/resume  
+  to start at a different offset from the beginning (default: 0) e.g. for resuming an aborted run, alter the value assigned to _BLKCNTR_ at the beginning of the script. this value is specified in number of blocks with the underlying blocksize being whatever is defined for _BLKSZ_.  
+  so in case the offset should be 1 GiB (= 1024 * 1024 * 1024 bytes = 1073741824 bytes) from the start of the blockdevice and the default blocksize of 64 KiB (= 65536 bytes) is being used, one should specify a number of ( 1073741824 / 65536 ) - 1 = 16383.
+
+of course, use with CAUTION and on your very own risk, this script WILL WIPE THE BLOCKDEVICE SPECIFIED, may contain bugs and might have other undesireable side effects if not used correctly!
 
 ### test-hashcat-truecrypt.sh
 quick test to see if all supported modes work correctly. this was thrown together when commiting [bug 456](https://github.com/hashcat/hashcat/issues/456) to hashcat for easier verification.
